@@ -3,21 +3,18 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-
   <title>eBiller — O seu faturador digital para o e-Millennium</title>
   <meta name="description" content="O eBiller é o seu faturador digital para o e-Millennium. Automatize o faturamento com velocidade, menos retrabalho e controle de exceções." />
   <meta name="theme-color" content="#0b1020" />
 
-  <!-- Favicon (coloque os arquivos na mesma pasta do index.html) -->
-  <link rel="icon" href="favicon.ico" sizes="any">
-  <link rel="icon" type="image/png" href="favicon.png">
-  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <!-- Favicon (usando o próprio logo) -->
+  <link rel="icon" type="image/png" href="LOGO_EBILLER.png" />
 
   <style>
     :root{
       --bg:#0b1020;
-      --muted:#9fb0d0;
       --text:#e9eefc;
+      --muted:#9fb0d0;
       --brand:#6ea8ff;
       --brand2:#8ff0c7;
       --line:rgba(255,255,255,.10);
@@ -26,20 +23,15 @@
       --max: 1120px;
       --pad: 18px;
 
-      /* ====== CORES BASE POR TÓPICO (mesma tonalidade / família) ======
-         Ajuste se quiser cada seção mais "azul", "esverdeada", etc.
-         Mantive tudo bem próximo do seu visual original. */
-      --s-hero: #0b1020;
-      --s-como: #0a0f1f;
-      --s-recursos: #090f22;
-      --s-integracao: #0a1024;
-      --s-seguranca: #0a1126;
-      --s-faq: #091024;
-      --s-contato: #08101f;
-      --s-footer: #070a14;
-
-      /* Altura da transição no final de cada seção */
-      --fade-h: 120px;
+      /* cores por tópico (mantendo mesma tonalidade) */
+      --c-hero:#0b1020;
+      --c-how:#0a1126;
+      --c-feat:#09112a;
+      --c-int:#081227;
+      --c-sec:#071021;
+      --c-faq:#070f1e;
+      --c-contact:#06101c;
+      --c-footer:#050b16;
     }
 
     *{box-sizing:border-box}
@@ -47,16 +39,15 @@
     body{
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: var(--bg);
       color:var(--text);
       line-height:1.5;
-
-      /* Agora o body fica neutro; as seções controlam o fundo */
-      background: var(--s-hero);
     }
 
     a{color:inherit; text-decoration:none}
     .container{max-width:var(--max); margin:0 auto; padding:0 var(--pad)}
 
+    /* Botões */
     .btn{
       display:inline-flex; align-items:center; justify-content:center; gap:.6rem;
       border:1px solid var(--line);
@@ -71,7 +62,6 @@
       letter-spacing:.2px;
       user-select:none;
       -webkit-tap-highlight-color: transparent;
-      white-space:nowrap;
     }
     .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.18)}
     .btn.primary{
@@ -82,6 +72,7 @@
     .btn.primary:hover{background: linear-gradient(135deg, rgba(110,168,255,1), rgba(143,240,199,.9))}
     .btn.small{padding:.65rem .9rem; font-size:.92rem}
 
+    /* Badge */
     .badge{
       display:inline-flex; align-items:center; gap:.55rem;
       padding:.45rem .8rem;
@@ -98,50 +89,6 @@
       box-shadow: 0 0 0 4px rgba(110,168,255,.14);
     }
 
-    /* ====== SEÇÕES COM COR SÓLIDA + DEGRADÊ PARA A PRÓXIMA ====== */
-    .section{
-      position: relative;
-      isolation: isolate; /* garante que ::after não “vaze” */
-      padding: 34px 0;
-      background: var(--sec-bg, var(--s-hero));
-      overflow: hidden;
-    }
-    /* Vinheta/iluminação suave para manter o “look premium” */
-    .section::before{
-      content:"";
-      position:absolute; inset:0;
-      background:
-        radial-gradient(1200px 700px at 15% 10%, rgba(110,168,255,.14), transparent 55%),
-        radial-gradient(900px 600px at 85% 15%, rgba(143,240,199,.10), transparent 55%);
-      opacity: .95;
-      pointer-events:none;
-      z-index:-2;
-    }
-    /* Faixa de transição: no fim vira degrade para a próxima cor */
-    .section::after{
-      content:"";
-      position:absolute;
-      left:0; right:0; bottom:0;
-      height: var(--fade-h);
-      background: linear-gradient(180deg,
-        rgba(0,0,0,0) 0%,
-        var(--next-bg, var(--sec-bg)) 100%
-      );
-      pointer-events:none;
-      z-index:-1;
-    }
-
-    /* Temas (bg atual + próxima cor) */
-    .theme-hero{ --sec-bg: var(--s-hero); --next-bg: var(--s-como); padding: 56px 0 34px; }
-    .theme-como{ --sec-bg: var(--s-como); --next-bg: var(--s-recursos); }
-    .theme-recursos{ --sec-bg: var(--s-recursos); --next-bg: var(--s-integracao); }
-    .theme-integracao{ --sec-bg: var(--s-integracao); --next-bg: var(--s-seguranca); }
-    .theme-seguranca{ --sec-bg: var(--s-seguranca); --next-bg: var(--s-faq); }
-    .theme-faq{ --sec-bg: var(--s-faq); --next-bg: var(--s-contato); }
-    .theme-contato{ --sec-bg: var(--s-contato); --next-bg: var(--s-footer); }
-    .theme-footer{ --sec-bg: var(--s-footer); --next-bg: var(--s-footer); padding: 26px 0 36px; }
-    .theme-footer::after{ display:none; } /* footer não precisa transição */
-
     /* Header */
     header{
       position: sticky;
@@ -154,33 +101,45 @@
     .nav{
       display:flex; align-items:center; justify-content:space-between;
       padding: 14px 0;
-      gap: 16px;
+      gap: 14px;
     }
 
-    /* Logo destaque, frase abaixo */
+    /* BRAND + LOGO em destaque (proporcional e sem borda) */
     .brand{
+      display:grid;
+      grid-template-columns: auto 1fr;
+      align-items:center;
+      gap: 16px;
+      min-width: 340px;
+    }
+    .logo-wrap{
       display:flex;
       flex-direction:column;
       align-items:flex-start;
       gap: 6px;
-      min-width: 0;
-      flex: 0 1 auto;
+      line-height:1.1;
     }
     .logo-img{
-      height: 62px;
+      height: 56px;          /* desktop */
       width: auto;
-      max-width: 380px;
+      max-width: 320px;
       object-fit: contain;
       display:block;
-      filter: drop-shadow(0 12px 26px rgba(0,0,0,.30));
+      filter: drop-shadow(0 12px 26px rgba(0,0,0,.28));
     }
-    .brand-under{
+    .logo-tag{
+      font-size:.86rem;
       color: var(--muted);
-      font-weight: 650;
-      font-size: .92rem;
-      line-height: 1.1;
-      max-width: 340px;
+      font-weight: 750;
+      letter-spacing:.15px;
+      white-space:nowrap;
     }
+    .brand-sub{
+      display:flex; flex-direction:column;
+      line-height:1.1;
+      padding-top: 2px;
+    }
+    .brand-sub strong{font-size:1rem; letter-spacing:-.2px}
 
     nav ul{
       list-style:none; margin:0; padding:0;
@@ -194,7 +153,6 @@
       padding:.55rem .7rem;
       border-radius: 999px;
       transition: background .12s ease, color .12s ease;
-      white-space:nowrap;
     }
     nav a:hover{
       background: rgba(255,255,255,.06);
@@ -210,10 +168,23 @@
       padding:.6rem .75rem;
       border-radius: 12px;
       cursor:pointer;
-      white-space:nowrap;
     }
 
-    /* Hero */
+    /* Seções por tópico: cor “única” + degradação ao final */
+    section.topic{
+      position:relative;
+      padding: 34px 0;
+      background: linear-gradient(180deg, var(--bg-start) 0%, var(--bg-start) 78%, var(--bg-end) 100%);
+    }
+
+    /* HERO */
+    .hero{
+      padding: 56px 0 34px;
+      background:
+        radial-gradient(1200px 800px at 10% 10%, rgba(110,168,255,.22), transparent 55%),
+        radial-gradient(1200px 800px at 90% 20%, rgba(143,240,199,.14), transparent 55%),
+        linear-gradient(180deg, var(--c-hero) 0%, var(--c-hero) 78%, var(--c-how) 100%);
+    }
     .hero-grid{
       display:grid;
       grid-template-columns: 1.15fr .85fr;
@@ -236,12 +207,7 @@
     .hero-ctas{display:flex; flex-wrap:wrap; gap: 12px; margin: 18px 0 14px}
     .mini{color: var(--muted); font-size:.95rem; font-weight:600; margin-top: 10px;}
 
-    .hero-cards{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-top: 22px;
-    }
+    /* Cards */
     .card{
       background: rgba(255,255,255,.05);
       border:1px solid rgba(255,255,255,.10);
@@ -249,6 +215,12 @@
       box-shadow: var(--shadow);
     }
     .card.pad{padding: 16px}
+    .hero-cards{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 22px;
+    }
     .kpi{
       display:flex; gap: 12px; align-items:flex-start;
     }
@@ -306,7 +278,7 @@
     .step strong{display:block}
     .step span{display:block; color: var(--muted); font-weight:600; font-size:.92rem}
 
-    /* Sections head */
+    /* Headings de seção */
     .section-head{
       display:flex; align-items:flex-end; justify-content:space-between; gap: 14px;
       margin-bottom: 14px;
@@ -322,7 +294,6 @@
       font-weight:600;
       max-width: 70ch;
     }
-
     .grid-3{
       display:grid;
       grid-template-columns: repeat(3, 1fr);
@@ -361,55 +332,21 @@
     .quote p{margin:0; color: var(--text); font-weight:650}
     .quote span{display:block; margin-top: 8px; color: var(--muted); font-weight:600; font-size:.93rem}
 
-    /* Contact */
-    form{display:grid; gap: 10px;}
-    label{
-      font-size:.9rem;
-      color: var(--muted);
-      font-weight:700;
-      display:block;
-      margin-bottom: 6px;
+    /* HubSpot form container (sem “success fake”) */
+    .hs-wrap{
+      padding: 16px;
     }
-    input, select, textarea{
-      width:100%;
-      padding: 12px 12px;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
-      color: var(--text);
-      outline: none;
-      font-weight: 650;
-    }
-    textarea{min-height: 120px; resize: vertical}
-    input:focus, select:focus, textarea:focus{
-      border-color: rgba(110,168,255,.45);
-      box-shadow: 0 0 0 4px rgba(110,168,255,.12);
-    }
-    .form-row{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-    .form-actions{
-      display:flex; gap: 10px; flex-wrap:wrap; align-items:center;
-      margin-top: 6px;
-    }
-    .notice{
-      color: var(--muted);
-      font-weight:600;
-      font-size:.92rem;
-      margin: 6px 0 0;
-    }
-    .success{
-      display:none;
-      padding: 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(143,240,199,.25);
-      background: rgba(143,240,199,.08);
-      color: #c8ffe7;
-      font-weight: 750;
+    .hs-form-frame{
+      width: 100% !important;
     }
 
+    footer{
+      padding: 26px 0 36px;
+      border-top: 1px solid rgba(255,255,255,.08);
+      color: var(--muted);
+      font-weight:650;
+      background: var(--c-footer);
+    }
     .footer-grid{
       display:flex;
       align-items:flex-start;
@@ -426,7 +363,9 @@
       .hero-grid{grid-template-columns: 1fr; }
       .hero-cards{grid-template-columns: 1fr 1fr}
       .grid-3{grid-template-columns: 1fr 1fr}
-      .logo-img{height: 56px; max-width: 320px;}
+      .brand{min-width: 280px;}
+      .logo-img{height: 52px;}
+      .logo-tag{white-space:normal; max-width: 260px;}
     }
     @media (max-width: 740px){
       .mobile-toggle{display:inline-flex}
@@ -435,19 +374,20 @@
       nav ul{padding: 10px 0 4px; justify-content:flex-start;}
       .nav{flex-wrap:wrap}
       .nav-actions{margin-left:auto}
-
+      .hero{padding: 42px 0 20px}
       .hero-cards{grid-template-columns: 1fr}
       .grid-3{grid-template-columns: 1fr}
       .grid-2{grid-template-columns: 1fr}
-      .form-row{grid-template-columns: 1fr}
-
-      .logo-img{height: 50px; max-width: 280px;}
-      .brand-under{font-size:.9rem; max-width: 280px;}
-
-      :root{ --fade-h: 90px; }
+      .brand{
+        grid-template-columns: 1fr;
+        gap: 10px;
+        min-width:auto;
+      }
+      .logo-img{height: 50px; max-width: 260px;}
+      .logo-tag{max-width: 320px;}
     }
 
-    .anchor{scroll-margin-top: 110px}
+    .anchor{scroll-margin-top: 90px}
   </style>
 </head>
 
@@ -456,8 +396,14 @@
     <div class="container">
       <div class="nav">
         <a class="brand" href="#top" aria-label="Ir para o topo">
-          <img src="LOGO_EBILLER.png" alt="eBiller" class="logo-img" />
-          <div class="brand-under">Automação fiscal integrada ao e-Millennium</div>
+          <div class="logo-wrap">
+            <img src="LOGO_EBILLER.png" alt="eBiller" class="logo-img" />
+            <!-- pedido: a frase fica abaixo do logo -->
+            <span class="logo-tag">Automação fiscal integrada ao e-Millennium</span>
+          </div>
+          <div class="brand-sub">
+            <strong>Seu faturador digital</strong>
+          </div>
         </a>
 
         <button class="mobile-toggle" id="menuBtn" aria-expanded="false" aria-controls="siteNav">Menu</button>
@@ -482,16 +428,12 @@
   </header>
 
   <main id="top">
-
-    <!-- HERO -->
-    <section class="section theme-hero">
+    <section class="hero">
       <div class="container">
         <div class="hero-grid">
           <div>
             <div class="badge"><span class="dot"></span><span>O eBiller é o seu faturador virtual para o e-Millennium</span></div>
-
             <h1>Faturamento automático com velocidade, controle e menos retrabalho.</h1>
-
             <p class="subtitle">
               O eBiller automatiza a emissão fiscal e organiza o processo por regras, filas e exceções —
               para você escalar operação sem depender de emissão manual.
@@ -573,8 +515,8 @@
       </div>
     </section>
 
-    <!-- COMO FUNCIONA -->
-    <section id="como-funciona" class="section theme-como anchor">
+    <!-- Como funciona -->
+    <section id="como-funciona" class="topic anchor" style="--bg-start: var(--c-how); --bg-end: var(--c-feat);">
       <div class="container">
         <div class="section-head">
           <div>
@@ -623,8 +565,8 @@
       </div>
     </section>
 
-    <!-- RECURSOS -->
-    <section id="recursos" class="section theme-recursos anchor">
+    <!-- Recursos -->
+    <section id="recursos" class="topic anchor" style="--bg-start: var(--c-feat); --bg-end: var(--c-int);">
       <div class="container">
         <div class="section-head">
           <div>
@@ -644,8 +586,8 @@
       </div>
     </section>
 
-    <!-- INTEGRAÇÃO -->
-    <section id="integracao" class="section theme-integracao anchor">
+    <!-- Integração -->
+    <section id="integracao" class="topic anchor" style="--bg-start: var(--c-int); --bg-end: var(--c-sec);">
       <div class="container">
         <div class="section-head">
           <div>
@@ -677,8 +619,8 @@
       </div>
     </section>
 
-    <!-- SEGURANÇA -->
-    <section id="seguranca" class="section theme-seguranca anchor">
+    <!-- Segurança -->
+    <section id="seguranca" class="topic anchor" style="--bg-start: var(--c-sec); --bg-end: var(--c-faq);">
       <div class="container">
         <div class="section-head">
           <div>
@@ -696,7 +638,7 @@
     </section>
 
     <!-- FAQ -->
-    <section id="faq" class="section theme-faq anchor">
+    <section id="faq" class="topic anchor" style="--bg-start: var(--c-faq); --bg-end: var(--c-contact);">
       <div class="container">
         <div class="section-head">
           <div>
@@ -714,8 +656,8 @@
       </div>
     </section>
 
-    <!-- CONTATO -->
-    <section id="contato" class="section theme-contato anchor">
+    <!-- Contato -->
+    <section id="contato" class="topic anchor" style="--bg-start: var(--c-contact); --bg-end: var(--c-footer);">
       <div class="container">
         <div class="section-head">
           <div>
@@ -725,84 +667,15 @@
         </div>
 
         <div class="grid-2">
-          <div class="card pad">
-            <div class="success" id="successBox">Recebido! Em produção, aqui você enviaria para seu CRM/endpoint.</div>
-
-            <form id="contactForm">
-              <div class="form-row">
-                <div>
-                  <label for="nome">Nome</label>
-                  <input id="nome" name="nome" placeholder="Seu nome" required />
-                </div>
-                <div>
-                  <label for="empresa">Empresa</label>
-                  <input id="empresa" name="empresa" placeholder="Nome da empresa" required />
-                </div>
-              </div>
-
-              <div class="form-row">
-                <div>
-                  <label for="email">E-mail</label>
-                  <input id="email" name="email" type="email" placeholder="voce@empresa.com" required />
-                </div>
-                <div>
-                  <label for="telefone">Telefone</label>
-                  <input id="telefone" name="telefone" placeholder="(00) 00000-0000" />
-                </div>
-              </div>
-
-              <div class="form-row">
-                <div>
-                  <label for="emillennium">Usa e-Millennium?</label>
-                  <select id="emillennium" name="emillennium" required>
-                    <option value="" selected disabled>Selecione</option>
-                    <option>Sim</option>
-                    <option>Não</option>
-                    <option>Em avaliação</option>
-                  </select>
-                </div>
-                <div>
-                  <label for="volume">Volume médio de emissões/dia</label>
-                  <select id="volume" name="volume">
-                    <option selected>Até 200</option>
-                    <option>200–1.000</option>
-                    <option>1.000–5.000</option>
-                    <option>Acima de 5.000</option>
-                  </select>
-                </div>
-              </div>
-
-              <div class="form-row">
-                <div>
-                  <label for="filiais">Nº de filiais/CDs</label>
-                  <select id="filiais" name="filiais">
-                    <option selected>1</option>
-                    <option>2–5</option>
-                    <option>6–20</option>
-                    <option>Acima de 20</option>
-                  </select>
-                </div>
-                <div>
-                  <label for="canal">Canais</label>
-                  <select id="canal" name="canal">
-                    <option selected>Loja física</option>
-                    <option>E-commerce</option>
-                    <option>Marketplaces</option>
-                    <option>Omnichannel (todos)</option>
-                  </select>
-                </div>
-              </div>
-
-              <div>
-                <label for="mensagem">Mensagem</label>
-                <textarea id="mensagem" name="mensagem" placeholder="Conte rapidamente sua dor: pico de pedidos, exceções, gargalos, integrações..."></textarea>
-              </div>
-
-              <div class="form-actions">
-                <button type="submit" class="btn primary">Enviar</button>
-                <a class="btn" href="mailto:contato@seudominio.com?subject=Quero%20conhecer%20o%20eBiller">Enviar por e-mail</a>
-              </div>
-            </form>
+          <!-- HUBSPOT FORM -->
+          <div class="card hs-wrap" aria-label="Formulário de contato">
+            <script src="https://js.hsforms.net/forms/embed/50849574.js" defer></script>
+            <div
+              class="hs-form-frame"
+              data-region="na1"
+              data-form-id="c42acc29-a13e-4b30-8bde-6567155e1629"
+              data-portal-id="50849574">
+            </div>
           </div>
 
           <div class="card pad feature">
@@ -824,14 +697,12 @@
       </div>
     </section>
 
-    <!-- FOOTER -->
-    <footer class="section theme-footer">
+    <footer>
       <div class="container">
         <div class="footer-grid">
           <div>
-            <div style="display:flex; flex-direction:column; align-items:flex-start; gap:6px; margin-bottom:10px;">
-              <img src="LOGO_EBILLER.png" alt="eBiller" style="height:46px; width:auto; object-fit:contain; filter: drop-shadow(0 10px 24px rgba(0,0,0,.25));" />
-              <div style="color: var(--muted); font-weight:650; font-size:.92rem; line-height:1.1;">Automação fiscal integrada ao e-Millennium</div>
+            <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px;">
+              <img src="LOGO_EBILLER.png" alt="eBiller" style="height:40px; width:auto; object-fit:contain; filter: drop-shadow(0 10px 24px rgba(0,0,0,.25));" />
             </div>
             <div>O eBiller é o seu faturador digital para o e-Millennium.</div>
             <div style="margin-top:8px; font-size:.92rem;">© <span id="year"></span> eBiller. Todos os direitos reservados.</div>
@@ -847,7 +718,6 @@
         </div>
       </div>
     </footer>
-
   </main>
 
   <script>
@@ -878,21 +748,8 @@
       });
     });
 
-    // Contact form (demo behavior)
-    const form = document.getElementById('contactForm');
-    const success = document.getElementById('successBox');
-
-    form?.addEventListener('submit', (e) => {
-      e.preventDefault();
-      success.style.display = 'block';
-      form.reset();
-      success.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-
     // Year
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
-
-
