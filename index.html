@@ -13,16 +13,24 @@
 
   <style>
     :root{
-      --bg:#0b1020;
       --text:#e9eefc;
       --muted:#9fb0d0;
-      --brand:#6ea8ff;
-      --brand2:#8ff0c7;
       --line:rgba(255,255,255,.10);
       --shadow: 0 18px 60px rgba(0,0,0,.35);
       --radius: 18px;
       --max: 1120px;
       --pad: 18px;
+
+      /* Paleta por tópico (sólido + degrade para o próximo) */
+      --c-hero:     #0b1020;
+      --c-recursos: #0a1428;
+      --c-integr:   #071628;
+      --c-seg:      #071225;
+      --c-faq:      #071021;
+      --c-contato:  #070a14;
+
+      --brand:#6ea8ff;
+      --brand2:#8ff0c7;
     }
 
     *{box-sizing:border-box}
@@ -38,18 +46,11 @@
     a{color:inherit; text-decoration:none}
     .container{max-width:var(--max); margin:0 auto; padding:0 var(--pad)}
 
-    /* Bands (um tom por tópico + degradê até o próximo) */
-    .band{
-      --band: #0b1020;
-      --bandNext: #0b1020;
-      background:
-        radial-gradient(1200px 800px at 10% 10%, rgba(110,168,255,.16), transparent 55%),
-        radial-gradient(1200px 800px at 90% 20%, rgba(143,240,199,.10), transparent 55%),
-        linear-gradient(180deg, var(--band) 0%, var(--band) 72%, var(--bandNext) 100%);
-    }
-
     .btn{
-      display:inline-flex; align-items:center; justify-content:center; gap:.6rem;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:.6rem;
       border:1px solid var(--line);
       background: rgba(255,255,255,.06);
       color:var(--text);
@@ -62,6 +63,11 @@
       letter-spacing:.2px;
       user-select:none;
       -webkit-tap-highlight-color: transparent;
+
+      /* centralizar texto (inclusive em 2 linhas) */
+      text-align:center;
+      line-height:1.15;
+      white-space:normal;
     }
     .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.18)}
     .btn.primary{
@@ -70,7 +76,7 @@
       color:#071021;
     }
     .btn.primary:hover{background: linear-gradient(135deg, rgba(110,168,255,1), rgba(143,240,199,.9))}
-    .btn.small{padding:.65rem .9rem; font-size:.92rem}
+    .btn.small{padding:.65rem .95rem; font-size:.92rem}
 
     .badge{
       display:inline-flex; align-items:center; gap:.55rem;
@@ -88,7 +94,7 @@
       box-shadow: 0 0 0 4px rgba(110,168,255,.14);
     }
 
-    /* Header */
+    /* ===== Header ===== */
     header{
       position: sticky;
       top:0;
@@ -103,28 +109,32 @@
       gap: 14px;
     }
 
-    /* Brand (logo com destaque e frase abaixo do logo) */
+    /* Logo com destaque (maior) + frase ABAIXO do logo */
     .brand{
       display:flex;
-      flex-direction:column;
       align-items:flex-start;
-      gap: 8px;
-      min-width: 260px;
+      gap: 14px;
+      min-width: 320px;
+    }
+    .brand-stack{
+      display:flex;
+      flex-direction:column;
+      gap: 6px;
+      line-height:1.1;
     }
     .logo-img{
-      height: 64px;          /* maior, proporcional */
+      height: 64px;       /* maior, proporcional */
       width: auto;
       max-width: 320px;
       object-fit: contain;
       display:block;
-      filter: drop-shadow(0 10px 28px rgba(0,0,0,.30));
+      filter: drop-shadow(0 12px 26px rgba(0,0,0,.35));
     }
-    .brand-sub{
-      display:block;
-      line-height:1.25;
+    .tagline{
       color: var(--muted);
       font-weight: 700;
       font-size: .92rem;
+      margin-left: 2px;
     }
 
     nav ul{
@@ -154,10 +164,50 @@
       padding:.6rem .75rem;
       border-radius: 12px;
       cursor:pointer;
+      text-align:center;
+      line-height:1.1;
     }
 
-    /* Hero */
-    .hero{padding: 56px 0 34px;}
+    /* ===== Seções com cor sólida + degrade pro próximo tópico ===== */
+    section{padding: 52px 0}
+    .topic{
+      position:relative;
+      overflow:hidden;
+    }
+    .bg-hero{
+      background:
+        radial-gradient(1200px 800px at 10% 10%, rgba(110,168,255,.22), transparent 55%),
+        radial-gradient(1200px 800px at 90% 20%, rgba(143,240,199,.14), transparent 55%),
+        linear-gradient(180deg, var(--c-hero) 0%, var(--c-hero) 76%, var(--c-recursos) 100%);
+    }
+    .bg-recursos{
+      background:
+        radial-gradient(1100px 700px at 15% 10%, rgba(110,168,255,.14), transparent 60%),
+        linear-gradient(180deg, var(--c-recursos) 0%, var(--c-recursos) 78%, var(--c-integr) 100%);
+    }
+    .bg-integr{
+      background:
+        radial-gradient(1100px 700px at 80% 15%, rgba(143,240,199,.10), transparent 60%),
+        linear-gradient(180deg, var(--c-integr) 0%, var(--c-integr) 78%, var(--c-seg) 100%);
+    }
+    .bg-seg{
+      background:
+        radial-gradient(1100px 700px at 20% 15%, rgba(110,168,255,.10), transparent 60%),
+        linear-gradient(180deg, var(--c-seg) 0%, var(--c-seg) 78%, var(--c-faq) 100%);
+    }
+    .bg-faq{
+      background:
+        radial-gradient(1100px 700px at 85% 20%, rgba(143,240,199,.08), transparent 60%),
+        linear-gradient(180deg, var(--c-faq) 0%, var(--c-faq) 78%, var(--c-contato) 100%);
+    }
+    .bg-contato{
+      background:
+        radial-gradient(1200px 800px at 10% 10%, rgba(110,168,255,.10), transparent 55%),
+        radial-gradient(1200px 800px at 90% 20%, rgba(143,240,199,.08), transparent 55%),
+        linear-gradient(180deg, var(--c-contato), #060913 85%);
+    }
+
+    /* Hero layout */
     .hero-grid{
       display:grid;
       grid-template-columns: 1.15fr .85fr;
@@ -194,6 +244,7 @@
       box-shadow: var(--shadow);
     }
     .card.pad{padding: 16px}
+
     .kpi{display:flex; gap: 12px; align-items:flex-start;}
     .icon{
       width:38px; height:38px; border-radius: 14px;
@@ -250,7 +301,6 @@
     .step span{display:block; color: var(--muted); font-weight:600; font-size:.92rem}
 
     /* Sections */
-    section{padding: 34px 0}
     .section-head{
       display:flex; align-items:flex-end; justify-content:space-between; gap: 14px;
       margin-bottom: 14px;
@@ -304,11 +354,31 @@
     .quote p{margin:0; color: var(--text); font-weight:650}
     .quote span{display:block; margin-top: 8px; color: var(--muted); font-weight:600; font-size:.93rem}
 
+    /* HubSpot form container */
+    .hubspot-wrap{
+      padding: 16px;
+      min-height: 420px;
+    }
+
+    /* Tenta esconder “Create your own free forms...” (quando renderiza fora de iframe) */
+    .hubspot-wrap .hs-form__virality-link,
+    .hubspot-wrap .hs-forms-hubspot-link,
+    .hubspot-wrap a[href*="create-your-own-free-forms"],
+    .hubspot-wrap a[href*="hsforms"]{
+      display:none !important;
+      visibility:hidden !important;
+      opacity:0 !important;
+      height:0 !important;
+      width:0 !important;
+      pointer-events:none !important;
+    }
+
     footer{
       padding: 26px 0 36px;
       border-top: 1px solid rgba(255,255,255,.08);
       color: var(--muted);
       font-weight:650;
+      background: #060913;
     }
     .footer-grid{
       display:flex;
@@ -321,33 +391,13 @@
     .footer-links a{color: var(--muted)}
     .footer-links a:hover{color: var(--text)}
 
-    /* HubSpot: esconder "Create your own free forms..." (quando vem no DOM) */
-    .hs-form-frame a[href*="hubspot.com"][href*="forms"]{display:none!important;}
-    .hs-form-frame .hs-form__powered-by,
-    .hs-form-frame .powered-by,
-    .hs-form-frame .hs-powered-by,
-    .hs-form-frame .hsfc-PoweredBy,
-    .hs-form-frame .hs-richtext a[href*="hubspot.com/products/marketing/forms"]{
-      display:none!important;
-      visibility:hidden!important;
-      opacity:0!important;
-      height:0!important;
-      overflow:hidden!important;
-    }
-
-    /* Ajustes do container do formulário */
-    .hs-form-frame{
-      width:100%;
-      display:block;
-    }
-
     /* Responsive */
     @media (max-width: 980px){
       .hero-grid{grid-template-columns: 1fr; }
       .hero-cards{grid-template-columns: 1fr 1fr}
       .grid-3{grid-template-columns: 1fr 1fr}
-      .brand{min-width: 240px;}
-      .logo-img{height: 56px; max-width: 280px;}
+      .brand{min-width: 260px;}
+      .logo-img{height: 58px;}
     }
     @media (max-width: 740px){
       .mobile-toggle{display:inline-flex}
@@ -356,16 +406,17 @@
       nav ul{padding: 10px 0 4px; justify-content:flex-start;}
       .nav{flex-wrap:wrap}
       .nav-actions{margin-left:auto}
-      .hero{padding: 42px 0 20px}
+
       .hero-cards{grid-template-columns: 1fr}
       .grid-3{grid-template-columns: 1fr}
       .grid-2{grid-template-columns: 1fr}
 
       .brand{min-width:auto}
-      .logo-img{height: 50px; max-width: 260px;}
+      .logo-img{height: 52px; max-width: 260px;}
+      .tagline{font-size:.88rem}
     }
 
-    .anchor{scroll-margin-top: 90px}
+    .anchor{scroll-margin-top: 98px}
   </style>
 </head>
 
@@ -374,15 +425,16 @@
     <div class="container">
       <div class="nav">
         <a class="brand" href="#top" aria-label="Ir para o topo">
-          <img src="LOGO_EBILLER.png" alt="eBiller" class="logo-img" />
-          <span class="brand-sub">Automação Digital Integrada</span>
+          <div class="brand-stack">
+            <img src="LOGO_EBILLER.png" alt="eBiller" class="logo-img" />
+            <div class="tagline">Automação fiscal integrada ao e-Millennium</div>
+          </div>
         </a>
 
         <button class="mobile-toggle" id="menuBtn" aria-expanded="false" aria-controls="siteNav">Menu</button>
 
         <nav id="siteNav" aria-label="Navegação principal">
           <ul>
-            <li><a href="#como-funciona">Como funciona</a></li>
             <li><a href="#recursos">Recursos</a></li>
             <li><a href="#integracao">Integração</a></li>
             <li><a href="#seguranca">Segurança</a></li>
@@ -401,7 +453,7 @@
 
   <main id="top">
     <!-- HERO -->
-    <section class="band hero" style="--band:#0b1020; --bandNext:#0a1226;">
+    <section class="topic bg-hero">
       <div class="container">
         <div class="hero-grid">
           <div>
@@ -489,7 +541,7 @@
     </section>
 
     <!-- COMO FUNCIONA -->
-    <section id="como-funciona" class="band anchor" style="--band:#0a1226; --bandNext:#0a152a;">
+    <section id="como-funciona" class="topic bg-recursos anchor">
       <div class="container">
         <div class="section-head">
           <div>
@@ -539,7 +591,7 @@
     </section>
 
     <!-- RECURSOS -->
-    <section id="recursos" class="band anchor" style="--band:#0a152a; --bandNext:#09162b;">
+    <section id="recursos" class="topic bg-recursos anchor">
       <div class="container">
         <div class="section-head">
           <div>
@@ -560,7 +612,7 @@
     </section>
 
     <!-- INTEGRAÇÃO -->
-    <section id="integracao" class="band anchor" style="--band:#09162b; --bandNext:#08172a;">
+    <section id="integracao" class="topic bg-integr anchor">
       <div class="container">
         <div class="section-head">
           <div>
@@ -593,7 +645,7 @@
     </section>
 
     <!-- SEGURANÇA -->
-    <section id="seguranca" class="band anchor" style="--band:#08172a; --bandNext:#071523;">
+    <section id="seguranca" class="topic bg-seg anchor">
       <div class="container">
         <div class="section-head">
           <div>
@@ -611,7 +663,7 @@
     </section>
 
     <!-- FAQ -->
-    <section id="faq" class="band anchor" style="--band:#071523; --bandNext:#06121e;">
+    <section id="faq" class="topic bg-faq anchor">
       <div class="container">
         <div class="section-head">
           <div>
@@ -629,8 +681,8 @@
       </div>
     </section>
 
-    <!-- CONTATO (HubSpot) -->
-    <section id="contato" class="band anchor" style="--band:#06121e; --bandNext:#050a14;">
+    <!-- CONTATO -->
+    <section id="contato" class="topic bg-contato anchor">
       <div class="container">
         <div class="section-head">
           <div>
@@ -640,13 +692,15 @@
         </div>
 
         <div class="grid-2">
-          <div class="card pad">
+          <div class="card hubspot-wrap" aria-label="Formulário HubSpot">
             <!-- HubSpot embed -->
             <script src="https://js.hsforms.net/forms/embed/50849574.js" defer></script>
-            <div class="hs-form-frame"
-                 data-region="na1"
-                 data-form-id="c42acc29-a13e-4b30-8bde-6567155e1629"
-                 data-portal-id="50849574"></div>
+            <div
+              class="hs-form-frame"
+              data-region="na1"
+              data-form-id="c42acc29-a13e-4b30-8bde-6567155e1629"
+              data-portal-id="50849574">
+            </div>
           </div>
 
           <div class="card pad feature">
@@ -668,7 +722,7 @@
       </div>
     </section>
 
-    <footer class="band" style="--band:#050a14; --bandNext:#050a14;">
+    <footer>
       <div class="container">
         <div class="footer-grid">
           <div>
@@ -723,34 +777,29 @@
     // Year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Fallback extra: tentar remover o "Create your own free forms..." quando vier como nó de texto/ancora
-    const killHubspotPromo = () => {
-      const root = document.querySelector('.hs-form-frame');
-      if (!root) return;
-      const links = root.querySelectorAll('a');
-      links.forEach(a => {
-        const t = (a.textContent || '').toLowerCase();
-        const h = (a.getAttribute('href') || '').toLowerCase();
-        if (t.includes('create your own free forms') || (h.includes('hubspot.com') && h.includes('/forms'))) {
-          // remove o container mais próximo possível
-          const box = a.closest('p, div, span') || a;
-          box.remove();
-        }
+    // Remove "Create your own free forms..." (quando aparecer no DOM)
+    // (Se o HubSpot renderizar em iframe, isso pode não remover 100%; mas cobre o caso que você mostrou.)
+    const killHubspotCta = () => {
+      const selectors = [
+        'a[href*="create-your-own-free-forms"]',
+        '.hs-form__virality-link',
+        '.hs-forms-hubspot-link'
+      ];
+      selectors.forEach(sel => {
+        document.querySelectorAll(sel).forEach(el => {
+          const box = el.closest('div') || el.closest('p') || el;
+          box.remove?.();
+        });
       });
     };
 
-    // roda algumas vezes porque o HubSpot injeta depois
-    setTimeout(killHubspotPromo, 1200);
-    setTimeout(killHubspotPromo, 2500);
-    setTimeout(killHubspotPromo, 4500);
+    // roda algumas vezes, porque o HubSpot injeta depois
+    let tries = 0;
+    const timer = setInterval(() => {
+      killHubspotCta();
+      tries++;
+      if (tries > 30) clearInterval(timer);
+    }, 500);
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
