@@ -7,10 +7,6 @@
   <meta name="description" content="O eBiller é o seu faturador digital para o e-Millennium. Automatize o faturamento com velocidade, menos retrabalho e controle de exceções." />
   <meta name="theme-color" content="#0b1020" />
 
-  <!-- FAVICON (usa o próprio logo na mesma pasta) -->
-  <link rel="icon" href="LOGO_EBILLER.png" type="image/png" />
-  <link rel="apple-touch-icon" href="LOGO_EBILLER.png" />
-
   <style>
     :root{
       --bg:#0b1020;
@@ -95,35 +91,19 @@
       gap: 14px;
     }
 
-    /* LOGO COM MAIOR DESTAQUE */
+    /* LOGO EM DESTAQUE */
     .brand{
       display:flex; align-items:center;
-      gap: 14px;
-      min-width: 320px;
-    }
-    .logo-wrap{
-      display:flex; align-items:center; justify-content:center;
-      padding: 10px 12px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.14);
-      background:
-        radial-gradient(140px 90px at 20% 20%, rgba(110,168,255,.25), transparent 60%),
-        radial-gradient(140px 90px at 80% 60%, rgba(143,240,199,.18), transparent 60%),
-        rgba(255,255,255,.04);
-      box-shadow:
-        0 14px 40px rgba(0,0,0,.35),
-        0 0 0 6px rgba(110,168,255,.07);
+      gap: 12px;
+      min-width: 260px;
     }
     .logo-img{
-      height: 92px;           /* ↑ maior */
+      height: 56px;
       width: auto;
-      max-width: 420px;
+      max-width: 280px;
       object-fit: contain;
       display:block;
-      filter:
-        drop-shadow(0 14px 28px rgba(0,0,0,.35))
-        drop-shadow(0 0 18px rgba(110,168,255,.18));
-      transform: translateZ(0);
+      filter: drop-shadow(0 10px 24px rgba(0,0,0,.25));
     }
     .brand-sub{
       display:flex; flex-direction:column; line-height:1.1;
@@ -380,8 +360,7 @@
       .hero-grid{grid-template-columns: 1fr; }
       .hero-cards{grid-template-columns: 1fr 1fr}
       .grid-3{grid-template-columns: 1fr 1fr}
-      .brand{min-width: 280px;}
-      .logo-img{height: 64px;}
+      .brand{min-width: 240px;}
     }
     @media (max-width: 740px){
       .mobile-toggle{display:inline-flex}
@@ -397,30 +376,26 @@
       .form-row{grid-template-columns: 1fr}
 
       .brand{min-width:auto}
-      .logo-wrap{padding: 8px 10px; border-radius: 14px;}
-      .logo-img{height: 64px; max-width: 300px;}
-      .brand-sub strong{font-size:.98rem}
-      .brand-sub span{font-size:.83rem}
+      .logo-img{height: 44px; max-width: 220px;}
     }
 
-    .anchor{scroll-margin-top: 96px}
+    .anchor{scroll-margin-top: 90px}
   </style>
 </head>
 
 <body>
   <!--
-    ✅ Coloque este arquivo e o LOGO_EBILLER.png na mesma pasta/repositório.
-    Caminho relativo correto:
-      src="LOGO_EBILLER.png"
+    ✅ Como o INDEX.HTML e o LOGO_EBILLER.PNG estão na mesma pasta (C:\eBiller),
+    o caminho correto para o logo é RELATIVO:
+      src="LOGO_EBILLER.PNG"
+    Não use "C:\eBiller\..." no HTML: browsers bloqueiam/limitam caminhos locais em vários cenários.
   -->
 
   <header>
     <div class="container">
       <div class="nav">
         <a class="brand" href="#top" aria-label="Ir para o topo">
-          <span class="logo-wrap" aria-hidden="true">
-            <img src="LOGO_EBILLER.png" alt="eBiller" class="logo-img" />
-          </span>
+          <img src="LOGO_EBILLER.PNG" alt="eBiller" class="logo-img" />
           <div class="brand-sub">
             <strong>Seu faturador digital</strong>
             <span>Automação fiscal integrada ao e-Millennium</span>
@@ -788,9 +763,7 @@
         <div class="footer-grid">
           <div>
             <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px;">
-              <span class="logo-wrap" style="padding:8px 10px; border-radius:14px; box-shadow: 0 12px 34px rgba(0,0,0,.35), 0 0 0 6px rgba(110,168,255,.07);">
-                <img src="LOGO_EBILLER.png" alt="eBiller" style="height:44px; width:auto; object-fit:contain; filter: drop-shadow(0 12px 24px rgba(0,0,0,.35)) drop-shadow(0 0 14px rgba(110,168,255,.16));" />
-              </span>
+              <img src="LOGO_EBILLER.PNG" alt="eBiller" style="height:40px; width:auto; object-fit:contain; filter: drop-shadow(0 10px 24px rgba(0,0,0,.25));" />
             </div>
             <div>O eBiller é o seu faturador digital para o e-Millennium.</div>
             <div style="margin-top:8px; font-size:.92rem;">© <span id="year"></span> eBiller. Todos os direitos reservados.</div>
@@ -852,4 +825,3 @@
   </script>
 </body>
 </html>
-
