@@ -3,13 +3,15 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
+
   <title>eBiller — O seu faturador digital para o e-Millennium</title>
   <meta name="description" content="O eBiller é o seu faturador digital para o e-Millennium. Automatize o faturamento com velocidade, menos retrabalho e controle de exceções." />
   <meta name="theme-color" content="#0b1020" />
 
-  <!-- Favicon (use o mesmo logo) -->
-  <link rel="icon" href="LOGO_EBILLER.png" type="image/png" />
-  <link rel="apple-touch-icon" href="LOGO_EBILLER.png" />
+  <!-- Favicon (coloque os arquivos na mesma pasta do index.html) -->
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
   <style>
     :root{
@@ -54,6 +56,7 @@
       letter-spacing:.2px;
       user-select:none;
       -webkit-tap-highlight-color: transparent;
+      white-space:nowrap;
     }
     .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.18)}
     .btn.primary{
@@ -91,38 +94,33 @@
     }
     .nav{
       display:flex; align-items:center; justify-content:space-between;
-      padding: 22px 0;         /* ✅ MAIS RESPIRO */
-      gap: 20px;
+      padding: 14px 0;
+      gap: 16px;
     }
 
-    /* LOGO EM DESTAQUE (sem borda/fundo) */
+    /* LOGO com mais destaque (sem borda / sem caixa) */
     .brand{
-      display:flex; align-items:center;
-      gap: 14px;
-      min-width: 0;            /* ✅ não “aperta” o layout */
+      display:flex;
+      flex-direction:column;     /* logo em cima, frase embaixo */
+      align-items:flex-start;
+      gap: 6px;
+      min-width: 0;
       flex: 0 1 auto;
     }
     .logo-img{
-      height: 72px;            /* ✅ LOGO MAIOR (desktop) */
+      height: 62px;              /* destaque */
       width: auto;
-      max-width: none;
+      max-width: 380px;
       object-fit: contain;
       display:block;
-      filter: drop-shadow(0 12px 30px rgba(0,0,0,.35));
+      filter: drop-shadow(0 12px 26px rgba(0,0,0,.30));
     }
-    .brand-sub{
-      display:flex; flex-direction:column; line-height:1.1;
-      min-width: 0;
-    }
-    .brand-sub strong{
-      font-size: 1.05rem;
-      letter-spacing:-.2px
-    }
-    .brand-sub span{
-      font-size:.9rem;
-      color:var(--muted);
-      font-weight:600;
-      max-width: 220px;
+    .brand-under{
+      color: var(--muted);
+      font-weight: 650;
+      font-size: .92rem;
+      line-height: 1.1;
+      max-width: 340px;
     }
 
     nav ul{
@@ -137,6 +135,7 @@
       padding:.55rem .7rem;
       border-radius: 999px;
       transition: background .12s ease, color .12s ease;
+      white-space:nowrap;
     }
     nav a:hover{
       background: rgba(255,255,255,.06);
@@ -152,6 +151,7 @@
       padding:.6rem .75rem;
       border-radius: 12px;
       cursor:pointer;
+      white-space:nowrap;
     }
 
     /* Hero */
@@ -374,8 +374,7 @@
       .hero-grid{grid-template-columns: 1fr; }
       .hero-cards{grid-template-columns: 1fr 1fr}
       .grid-3{grid-template-columns: 1fr 1fr}
-      .brand-sub span{max-width: 200px;}
-      .logo-img{height: 64px;}
+      .logo-img{height: 56px; max-width: 320px;}
     }
     @media (max-width: 740px){
       .mobile-toggle{display:inline-flex}
@@ -390,31 +389,22 @@
       .grid-2{grid-template-columns: 1fr}
       .form-row{grid-template-columns: 1fr}
 
-      .logo-img{
-        height: 56px; /* ✅ proporcional, ainda com destaque no mobile */
-      }
-      .brand-sub span{max-width: 180px;}
+      .logo-img{height: 50px; max-width: 280px;}
+      .brand-under{font-size:.9rem; max-width: 280px;}
     }
 
-    .anchor{scroll-margin-top: 100px}
+    .anchor{scroll-margin-top: 110px}
   </style>
 </head>
 
 <body>
-  <!--
-    ✅ Coloque o arquivo "LOGO_EBILLER.png" (transparente) na mesma pasta do index.html
-    ✅ O favicon também usa esse mesmo arquivo.
-  -->
-
   <header>
     <div class="container">
       <div class="nav">
+        <!-- Logo com destaque + frase abaixo -->
         <a class="brand" href="#top" aria-label="Ir para o topo">
           <img src="LOGO_EBILLER.png" alt="eBiller" class="logo-img" />
-          <div class="brand-sub">
-            <strong>Seu faturador digital</strong>
-            <span>Automação fiscal integrada ao e-Millennium</span>
-          </div>
+          <div class="brand-under">Automação fiscal integrada ao e-Millennium</div>
         </a>
 
         <button class="mobile-toggle" id="menuBtn" aria-expanded="false" aria-controls="siteNav">Menu</button>
@@ -444,7 +434,9 @@
         <div class="hero-grid">
           <div>
             <div class="badge"><span class="dot"></span><span>O eBiller é o seu faturador virtual para o e-Millennium</span></div>
+
             <h1>Faturamento automático com velocidade, controle e menos retrabalho.</h1>
+
             <p class="subtitle">
               O eBiller automatiza a emissão fiscal e organiza o processo por regras, filas e exceções —
               para você escalar operação sem depender de emissão manual.
@@ -777,8 +769,9 @@
       <div class="container">
         <div class="footer-grid">
           <div>
-            <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px;">
-              <img src="LOGO_EBILLER.png" alt="eBiller" style="height:40px; width:auto; object-fit:contain; filter: drop-shadow(0 10px 24px rgba(0,0,0,.25));" />
+            <div style="display:flex; flex-direction:column; align-items:flex-start; gap:6px; margin-bottom:10px;">
+              <img src="LOGO_EBILLER.png" alt="eBiller" style="height:46px; width:auto; object-fit:contain; filter: drop-shadow(0 10px 24px rgba(0,0,0,.25));" />
+              <div style="color: var(--muted); font-weight:650; font-size:.92rem; line-height:1.1;">Automação fiscal integrada ao e-Millennium</div>
             </div>
             <div>O eBiller é o seu faturador digital para o e-Millennium.</div>
             <div style="margin-top:8px; font-size:.92rem;">© <span id="year"></span> eBiller. Todos os direitos reservados.</div>
@@ -840,5 +833,3 @@
   </script>
 </body>
 </html>
-
-
