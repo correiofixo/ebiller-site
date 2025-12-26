@@ -1,1 +1,844 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>eBiller — O seu faturador digital para o e-Millennium</title>
+  <meta name="description" content="O eBiller é o seu faturador digital para o e-Millennium. Automatize o faturamento com velocidade, menos retrabalho e controle de exceções." />
+  <meta name="theme-color" content="#0b1020" />
+
+  <!-- Favicon (use o mesmo logo) -->
+  <link rel="icon" href="LOGO_EBILLER.png" type="image/png" />
+  <link rel="apple-touch-icon" href="LOGO_EBILLER.png" />
+
+  <style>
+    :root{
+      --bg:#0b1020;
+      --muted:#9fb0d0;
+      --text:#e9eefc;
+      --brand:#6ea8ff;
+      --brand2:#8ff0c7;
+      --line:rgba(255,255,255,.10);
+      --shadow: 0 18px 60px rgba(0,0,0,.35);
+      --radius: 18px;
+      --max: 1120px;
+      --pad: 18px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: radial-gradient(1200px 800px at 10% 10%, rgba(110,168,255,.22), transparent 55%),
+                  radial-gradient(1200px 800px at 90% 20%, rgba(143,240,199,.14), transparent 55%),
+                  linear-gradient(180deg, var(--bg), #070a14 75%);
+      color:var(--text);
+      line-height:1.5;
+    }
+
+    a{color:inherit; text-decoration:none}
+    .container{max-width:var(--max); margin:0 auto; padding:0 var(--pad)}
+
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:.6rem;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.06);
+      color:var(--text);
+      padding:.9rem 1.1rem;
+      border-radius: 999px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.18);
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      cursor:pointer;
+      font-weight: 650;
+      letter-spacing:.2px;
+      user-select:none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.18)}
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(110,168,255,.95), rgba(143,240,199,.75));
+      border-color: rgba(255,255,255,.10);
+      color:#071021;
+    }
+    .btn.primary:hover{background: linear-gradient(135deg, rgba(110,168,255,1), rgba(143,240,199,.9))}
+    .btn.small{padding:.65rem .9rem; font-size:.92rem}
+
+    .badge{
+      display:inline-flex; align-items:center; gap:.55rem;
+      padding:.45rem .8rem;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.05);
+      color: var(--muted);
+      font-weight:600;
+      font-size:.9rem;
+    }
+    .dot{
+      width:.55rem; height:.55rem; border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #fff, var(--brand));
+      box-shadow: 0 0 0 4px rgba(110,168,255,.14);
+    }
+
+    /* Header */
+    header{
+      position: sticky;
+      top:0;
+      z-index: 50;
+      backdrop-filter: blur(12px);
+      background: rgba(11,16,32,.62);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 22px 0;         /* ✅ MAIS RESPIRO */
+      gap: 20px;
+    }
+
+    /* LOGO EM DESTAQUE (sem borda/fundo) */
+    .brand{
+      display:flex; align-items:center;
+      gap: 14px;
+      min-width: 0;            /* ✅ não “aperta” o layout */
+      flex: 0 1 auto;
+    }
+    .logo-img{
+      height: 72px;            /* ✅ LOGO MAIOR (desktop) */
+      width: auto;
+      max-width: none;
+      object-fit: contain;
+      display:block;
+      filter: drop-shadow(0 12px 30px rgba(0,0,0,.35));
+    }
+    .brand-sub{
+      display:flex; flex-direction:column; line-height:1.1;
+      min-width: 0;
+    }
+    .brand-sub strong{
+      font-size: 1.05rem;
+      letter-spacing:-.2px
+    }
+    .brand-sub span{
+      font-size:.9rem;
+      color:var(--muted);
+      font-weight:600;
+      max-width: 220px;
+    }
+
+    nav ul{
+      list-style:none; margin:0; padding:0;
+      display:flex; align-items:center; gap: 14px;
+      flex-wrap:wrap;
+      justify-content:center;
+    }
+    nav a{
+      color: var(--muted);
+      font-weight:650;
+      padding:.55rem .7rem;
+      border-radius: 999px;
+      transition: background .12s ease, color .12s ease;
+    }
+    nav a:hover{
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+    }
+    .nav-actions{display:flex; gap:10px; align-items:center}
+
+    .mobile-toggle{
+      display:none;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      color: var(--text);
+      padding:.6rem .75rem;
+      border-radius: 12px;
+      cursor:pointer;
+    }
+
+    /* Hero */
+    .hero{padding: 56px 0 34px;}
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 26px;
+      align-items: stretch;
+    }
+    h1{
+      font-size: clamp(2rem, 3.8vw, 3.2rem);
+      line-height:1.05;
+      letter-spacing:-.8px;
+      margin: 16px 0 14px;
+    }
+    .subtitle{
+      color: var(--muted);
+      font-size: 1.08rem;
+      max-width: 56ch;
+      margin: 0 0 22px;
+      font-weight: 600;
+    }
+    .hero-ctas{display:flex; flex-wrap:wrap; gap: 12px; margin: 18px 0 14px}
+    .mini{color: var(--muted); font-size:.95rem; font-weight:600; margin-top: 10px;}
+
+    .hero-cards{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 22px;
+    }
+    .card{
+      background: rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .card.pad{padding: 16px}
+    .kpi{
+      display:flex; gap: 12px; align-items:flex-start;
+    }
+    .icon{
+      width:38px; height:38px; border-radius: 14px;
+      background: rgba(110,168,255,.16);
+      border:1px solid rgba(110,168,255,.22);
+      display:grid; place-items:center;
+      flex:0 0 auto;
+    }
+    .icon svg{width:20px; height:20px; fill: var(--brand)}
+    .kpi strong{display:block; font-size:1.02rem; margin-bottom: 2px}
+    .kpi span{color: var(--muted); font-weight:600; font-size:.92rem}
+
+    .hero-side{
+      padding: 18px;
+      display:flex;
+      flex-direction:column;
+      gap: 14px;
+    }
+    .panel-title{
+      display:flex; align-items:center; justify-content:space-between;
+      gap: 10px;
+      margin-bottom: 4px;
+    }
+    .panel-title strong{font-size:1.05rem}
+    .pill{
+      font-size:.82rem;
+      color: var(--muted);
+      border:1px solid rgba(255,255,255,.12);
+      padding:.35rem .55rem;
+      border-radius: 999px;
+      background: rgba(255,255,255,.04);
+      font-weight:700;
+      white-space:nowrap;
+    }
+    .flow{display:grid; gap: 10px;}
+    .step{
+      display:flex;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+    }
+    .step .n{
+      width:28px; height:28px; border-radius: 10px;
+      background: rgba(143,240,199,.15);
+      border:1px solid rgba(143,240,199,.22);
+      display:grid; place-items:center;
+      font-weight:900;
+      color: var(--brand2);
+      flex: 0 0 auto;
+    }
+    .step strong{display:block}
+    .step span{display:block; color: var(--muted); font-weight:600; font-size:.92rem}
+
+    /* Sections */
+    section{padding: 34px 0}
+    .section-head{
+      display:flex; align-items:flex-end; justify-content:space-between; gap: 14px;
+      margin-bottom: 14px;
+    }
+    h2{
+      margin:0;
+      font-size: clamp(1.35rem, 2.3vw, 1.85rem);
+      letter-spacing:-.3px;
+    }
+    .section-head p{
+      margin:0;
+      color: var(--muted);
+      font-weight:600;
+      max-width: 70ch;
+    }
+    .grid-3{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .grid-2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .feature{padding: 16px;}
+    .feature h3{
+      margin: 10px 0 6px;
+      font-size: 1.05rem;
+      letter-spacing:-.2px;
+    }
+    .feature p{
+      margin: 0;
+      color: var(--muted);
+      font-weight:600;
+      font-size:.95rem;
+    }
+    .list{
+      margin: 10px 0 0;
+      padding: 0 0 0 18px;
+      color: var(--muted);
+      font-weight:600;
+    }
+    .list li{margin:.35rem 0}
+
+    .quote{
+      padding: 16px;
+      border-left: 3px solid rgba(110,168,255,.55);
+      background: rgba(255,255,255,.04);
+    }
+    .quote p{margin:0; color: var(--text); font-weight:650}
+    .quote span{display:block; margin-top: 8px; color: var(--muted); font-weight:600; font-size:.93rem}
+
+    /* Contact */
+    form{display:grid; gap: 10px;}
+    label{
+      font-size:.9rem;
+      color: var(--muted);
+      font-weight:700;
+      display:block;
+      margin-bottom: 6px;
+    }
+    input, select, textarea{
+      width:100%;
+      padding: 12px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+      outline: none;
+      font-weight: 650;
+    }
+    textarea{min-height: 120px; resize: vertical}
+    input:focus, select:focus, textarea:focus{
+      border-color: rgba(110,168,255,.45);
+      box-shadow: 0 0 0 4px rgba(110,168,255,.12);
+    }
+    .form-row{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .form-actions{
+      display:flex; gap: 10px; flex-wrap:wrap; align-items:center;
+      margin-top: 6px;
+    }
+    .notice{
+      color: var(--muted);
+      font-weight:600;
+      font-size:.92rem;
+      margin: 6px 0 0;
+    }
+    .success{
+      display:none;
+      padding: 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(143,240,199,.25);
+      background: rgba(143,240,199,.08);
+      color: #c8ffe7;
+      font-weight: 750;
+    }
+
+    footer{
+      padding: 26px 0 36px;
+      border-top: 1px solid rgba(255,255,255,.08);
+      color: var(--muted);
+      font-weight:650;
+    }
+    .footer-grid{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+    .footer-links{display:flex; gap: 14px; flex-wrap:wrap}
+    .footer-links a{color: var(--muted)}
+    .footer-links a:hover{color: var(--text)}
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .hero-grid{grid-template-columns: 1fr; }
+      .hero-cards{grid-template-columns: 1fr 1fr}
+      .grid-3{grid-template-columns: 1fr 1fr}
+      .brand-sub span{max-width: 200px;}
+      .logo-img{height: 64px;}
+    }
+    @media (max-width: 740px){
+      .mobile-toggle{display:inline-flex}
+      nav{display:none}
+      nav.open{display:block; width:100%}
+      nav ul{padding: 10px 0 4px; justify-content:flex-start;}
+      .nav{flex-wrap:wrap}
+      .nav-actions{margin-left:auto}
+      .hero{padding: 42px 0 20px}
+      .hero-cards{grid-template-columns: 1fr}
+      .grid-3{grid-template-columns: 1fr}
+      .grid-2{grid-template-columns: 1fr}
+      .form-row{grid-template-columns: 1fr}
+
+      .logo-img{
+        height: 56px; /* ✅ proporcional, ainda com destaque no mobile */
+      }
+      .brand-sub span{max-width: 180px;}
+    }
+
+    .anchor{scroll-margin-top: 100px}
+  </style>
+</head>
+
+<body>
+  <!--
+    ✅ Coloque o arquivo "LOGO_EBILLER.png" (transparente) na mesma pasta do index.html
+    ✅ O favicon também usa esse mesmo arquivo.
+  -->
+
+  <header>
+    <div class="container">
+      <div class="nav">
+        <a class="brand" href="#top" aria-label="Ir para o topo">
+          <img src="LOGO_EBILLER.png" alt="eBiller" class="logo-img" />
+          <div class="brand-sub">
+            <strong>Seu faturador digital</strong>
+            <span>Automação fiscal integrada ao e-Millennium</span>
+          </div>
+        </a>
+
+        <button class="mobile-toggle" id="menuBtn" aria-expanded="false" aria-controls="siteNav">Menu</button>
+
+        <nav id="siteNav" aria-label="Navegação principal">
+          <ul>
+            <li><a href="#como-funciona">Como funciona</a></li>
+            <li><a href="#recursos">Recursos</a></li>
+            <li><a href="#integracao">Integração</a></li>
+            <li><a href="#seguranca">Segurança</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#contato">Contato</a></li>
+          </ul>
+        </nav>
+
+        <div class="nav-actions">
+          <a class="btn small" href="#contato">Falar com um especialista</a>
+          <a class="btn primary small" href="#contato">Agendar demo</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container">
+        <div class="hero-grid">
+          <div>
+            <div class="badge"><span class="dot"></span><span>O eBiller é o seu faturador virtual para o e-Millennium</span></div>
+            <h1>Faturamento automático com velocidade, controle e menos retrabalho.</h1>
+            <p class="subtitle">
+              O eBiller automatiza a emissão fiscal e organiza o processo por regras, filas e exceções —
+              para você escalar operação sem depender de emissão manual.
+            </p>
+
+            <div class="hero-ctas">
+              <a class="btn primary" href="#contato" aria-label="Agendar demonstração">Agendar demonstração</a>
+              <a class="btn" href="#como-funciona" aria-label="Ver como funciona">Ver como funciona</a>
+            </div>
+
+            <div class="hero-cards" aria-label="Benefícios rápidos">
+              <div class="card pad kpi">
+                <div class="icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10.011 10.011 0 0 0 12 2Zm1 10.414V7a1 1 0 0 0-2 0v6a1 1 0 0 0 .293.707l3 3a1 1 0 1 0 1.414-1.414Z"/></svg>
+                </div>
+                <div>
+                  <strong>Emissão contínua</strong>
+                  <span>Fila automática para ganhar throughput.</span>
+                </div>
+              </div>
+
+              <div class="card pad kpi">
+                <div class="icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M21 7 9 19l-5.5-5.5a1 1 0 0 1 1.414-1.414L9 16.172 19.586 5.586A1 1 0 0 1 21 7Z"/></svg>
+                </div>
+                <div>
+                  <strong>Menos retrabalho</strong>
+                  <span>Exceções organizadas e reprocesso.</span>
+                </div>
+              </div>
+
+              <div class="card pad kpi">
+                <div class="icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M12 1a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v9a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-9a2 2 0 0 0-2-2h-1V6a5 5 0 0 0-5-5Zm-3 8V6a3 3 0 0 1 6 0v3Z"/></svg>
+                </div>
+                <div>
+                  <strong>Governança</strong>
+                  <span>Rastreabilidade e padronização do fluxo.</span>
+                </div>
+              </div>
+
+              <div class="card pad kpi">
+                <div class="icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M4 4h16v6H4zM4 12h10v8H4zM16 12h4v8h-4z"/></svg>
+                </div>
+                <div>
+                  <strong>Feito para o ERP</strong>
+                  <span>Integração alinhada ao e-Millennium.</span>
+                </div>
+              </div>
+            </div>
+
+            <p class="mini">
+              Exemplo típico: conferiu no CD → o eBiller fatura automaticamente → o time atua só nas exceções.
+            </p>
+          </div>
+
+          <aside class="card hero-side" aria-label="Painel ilustrativo do fluxo">
+            <div class="panel-title">
+              <strong>Fluxo operacional</strong>
+              <span class="pill">Visão resumida</span>
+            </div>
+
+            <div class="flow">
+              <div class="step"><div class="n">1</div><div><strong>Elegibilidade</strong><span>Pedidos conferidos entram na fila por regras.</span></div></div>
+              <div class="step"><div class="n">2</div><div><strong>Emissão</strong><span>O eBiller executa a emissão e acompanha retornos.</span></div></div>
+              <div class="step"><div class="n">3</div><div><strong>Exceções</strong><span>Ocorrências ficam claras: motivo, ação e histórico.</span></div></div>
+              <div class="step"><div class="n">4</div><div><strong>Rastreio e Auditoria</strong><span>Trilha do que foi processado, quando e como.</span></div></div>
+            </div>
+
+            <div class="card pad quote" style="box-shadow:none; border-color: rgba(255,255,255,.10)">
+              <p>“O faturamento deixa de ser gargalo e vira um fluxo previsível.”</p>
+              <span>— Cenário comum em operações com pico de pedidos e SLA de expedição</span>
+            </div>
+
+            <a class="btn primary" href="#contato">Quero ver na minha operação</a>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section id="como-funciona" class="anchor">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Como o eBiller funciona</h2>
+            <p>O eBiller organiza faturamento como processo: regras, fila, execução, retorno e tratamento de exceções.</p>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card pad feature">
+            <h3>1) Conexão com o e-Millennium</h3>
+            <p>Integração autorizada para acessar dados e operar o fluxo de faturamento conforme o processo do ERP.</p>
+            <ul class="list">
+              <li>Ambientes e credenciais bem definidos</li>
+              <li>Alinhamento de cadastros e regras fiscais</li>
+            </ul>
+          </div>
+
+          <div class="card pad feature">
+            <h3>2) Regras e fila de emissão</h3>
+            <p>Pedidos elegíveis entram em fila automaticamente por critérios do negócio, sem “cliques repetitivos”.</p>
+            <ul class="list">
+              <li>Prioridades por canal/filial/transportadora</li>
+              <li>Janelas de corte e controle de volume</li>
+            </ul>
+          </div>
+
+          <div class="card pad feature">
+            <h3>3) Emissão e retornos</h3>
+            <p>O eBiller executa o faturamento e acompanha o retorno do processamento, mantendo consistência operacional.</p>
+            <ul class="list">
+              <li>Execução em lote e acompanhamento</li>
+              <li>Rastreabilidade do fluxo por evento</li>
+            </ul>
+          </div>
+
+          <div class="card pad feature">
+            <h3>4) Exceções e reprocesso</h3>
+            <p>O que falhar vira exceção com motivo claro. Após correção, reprocessa sem refazer o trabalho.</p>
+            <ul class="list">
+              <li>Separação do que exige ação humana</li>
+              <li>Menos retrabalho e mais previsibilidade</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="recursos" class="anchor">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Recursos do eBiller</h2>
+            <p>Uma experiência B2B focada em escala, controle e operação de faturamento com menos intervenção manual.</p>
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <div class="card pad feature"><h3>Fila de emissão</h3><p>Organize pedidos por prioridade e processe com estabilidade em picos.</p></div>
+          <div class="card pad feature"><h3>Regras configuráveis</h3><p>Critérios por filial, canal, tipo de pedido e rotinas operacionais.</p></div>
+          <div class="card pad feature"><h3>Gestão de exceções</h3><p>Motivo claro, ação recomendada e histórico para reprocesso.</p></div>
+          <div class="card pad feature"><h3>Painel operacional</h3><p>Visão do dia: emitidas, pendentes, com erro, em análise.</p></div>
+          <div class="card pad feature"><h3>Auditoria</h3><p>Rastreabilidade do que foi processado, quando e como.</p></div>
+          <div class="card pad feature"><h3>Padronização do fluxo</h3><p>Menos variação humana e mais previsibilidade para operação fiscal e logística.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="integracao" class="anchor">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Integração com o e-Millennium</h2>
+            <p>O eBiller é pensado para reduzir atrito em quem já opera no ERP, sem criar “duas verdades” de cadastro e status.</p>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card pad feature">
+            <h3>O que a integração habilita</h3>
+            <ul class="list">
+              <li>Operar com base em pedidos e status do ERP</li>
+              <li>Aplicar regras de elegibilidade e priorização</li>
+              <li>Manter consistência entre emissão, estoque e expedição</li>
+              <li>Evitar planilhas paralelas para “controlar emissão”</li>
+            </ul>
+          </div>
+          <div class="card pad feature">
+            <h3>Para quem faz diferença</h3>
+            <ul class="list">
+              <li>SLA de expedição (conferiu → fatura → embarca)</li>
+              <li>Múltiplas filiais/CDs e picos</li>
+              <li>Necessidade de rastreabilidade</li>
+              <li>Operação omnichannel</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="seguranca" class="anchor">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Segurança e governança</h2>
+            <p>Automação não é “caixa-preta”. O eBiller prioriza controle, trilha de auditoria e responsabilidade operacional.</p>
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <div class="card pad feature"><h3>Acesso controlado</h3><p>Permissões e perfis alinhados a responsabilidades de operação e fiscal.</p></div>
+          <div class="card pad feature"><h3>Rastreabilidade</h3><p>Registro de eventos e histórico do processamento para auditoria e diagnóstico.</p></div>
+          <div class="card pad feature"><h3>Continuidade operacional</h3><p>Tratamento de falhas e foco em reprocesso onde fizer sentido.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="anchor">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Perguntas frequentes</h2>
+            <p>Respostas objetivas para apoiar decisão e alinhamento entre TI, fiscal e operação.</p>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card pad feature"><h3>O eBiller substitui o e-Millennium?</h3><p>Não. O eBiller é um faturador digital para empresas que já utilizam o e-Millennium.</p></div>
+          <div class="card pad feature"><h3>O eBiller funciona para alto volume?</h3><p>Sim — principalmente quando há fila, picos e necessidade de reduzir intervenção manual.</p></div>
+          <div class="card pad feature"><h3>Como o eBiller lida com falhas?</h3><p>O que falhar vira exceção com motivo claro e pode ser reprocessado após correção.</p></div>
+          <div class="card pad feature"><h3>Quanto tempo leva para implantar?</h3><p>Depende da complexidade e da organização de cadastros e regras fiscais.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contato" class="anchor">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Contato e demonstração</h2>
+            <p>Conte sobre sua operação. O eBiller fica mais eficiente quando o fluxo reflete sua realidade.</p>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card pad">
+            <div class="success" id="successBox">Recebido! Em produção, aqui você enviaria para seu CRM/endpoint.</div>
+
+            <form id="contactForm">
+              <div class="form-row">
+                <div>
+                  <label for="nome">Nome</label>
+                  <input id="nome" name="nome" placeholder="Seu nome" required />
+                </div>
+                <div>
+                  <label for="empresa">Empresa</label>
+                  <input id="empresa" name="empresa" placeholder="Nome da empresa" required />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div>
+                  <label for="email">E-mail</label>
+                  <input id="email" name="email" type="email" placeholder="voce@empresa.com" required />
+                </div>
+                <div>
+                  <label for="telefone">Telefone</label>
+                  <input id="telefone" name="telefone" placeholder="(00) 00000-0000" />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div>
+                  <label for="emillennium">Usa e-Millennium?</label>
+                  <select id="emillennium" name="emillennium" required>
+                    <option value="" selected disabled>Selecione</option>
+                    <option>Sim</option>
+                    <option>Não</option>
+                    <option>Em avaliação</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="volume">Volume médio de emissões/dia</label>
+                  <select id="volume" name="volume">
+                    <option selected>Até 200</option>
+                    <option>200–1.000</option>
+                    <option>1.000–5.000</option>
+                    <option>Acima de 5.000</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div>
+                  <label for="filiais">Nº de filiais/CDs</label>
+                  <select id="filiais" name="filiais">
+                    <option selected>1</option>
+                    <option>2–5</option>
+                    <option>6–20</option>
+                    <option>Acima de 20</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="canal">Canais</label>
+                  <select id="canal" name="canal">
+                    <option selected>Loja física</option>
+                    <option>E-commerce</option>
+                    <option>Marketplaces</option>
+                    <option>Omnichannel (todos)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label for="mensagem">Mensagem</label>
+                <textarea id="mensagem" name="mensagem" placeholder="Conte rapidamente sua dor: pico de pedidos, exceções, gargalos, integrações..."></textarea>
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" class="btn primary">Enviar</button>
+                <a class="btn" href="mailto:contato@seudominio.com?subject=Quero%20conhecer%20o%20eBiller">Enviar por e-mail</a>
+              </div>
+
+              <p class="notice">Em produção, conecte este formulário ao seu CRM/endpoint via <code>fetch</code>.</p>
+            </form>
+          </div>
+
+          <div class="card pad feature">
+            <h3>O que enviar para uma avaliação rápida</h3>
+            <ul class="list">
+              <li>Volume médio e pico de emissões</li>
+              <li>Quantas filiais/CDs e UFs atendidas</li>
+              <li>Canais (loja, e-commerce, marketplaces)</li>
+              <li>Principais ocorrências hoje (rejeições, retrabalho, atrasos)</li>
+              <li>Integrações relevantes (WMS/TMS, plataformas)</li>
+            </ul>
+
+            <div class="card pad quote" style="margin-top:12px; box-shadow:none;">
+              <p>O eBiller é mais estratégico quando faturamento impacta expedição e caixa.</p>
+              <span>Operações com SLA e pico normalmente ganham mais.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        <div class="footer-grid">
+          <div>
+            <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px;">
+              <img src="LOGO_EBILLER.png" alt="eBiller" style="height:40px; width:auto; object-fit:contain; filter: drop-shadow(0 10px 24px rgba(0,0,0,.25));" />
+            </div>
+            <div>O eBiller é o seu faturador digital para o e-Millennium.</div>
+            <div style="margin-top:8px; font-size:.92rem;">© <span id="year"></span> eBiller. Todos os direitos reservados.</div>
+          </div>
+
+          <div class="footer-links">
+            <a href="#como-funciona">Como funciona</a>
+            <a href="#recursos">Recursos</a>
+            <a href="#seguranca">Segurança</a>
+            <a href="#faq">FAQ</a>
+            <a href="#contato">Contato</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // Mobile menu
+    const menuBtn = document.getElementById('menuBtn');
+    const siteNav = document.getElementById('siteNav');
+
+    menuBtn?.addEventListener('click', () => {
+      const isOpen = siteNav.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const href = a.getAttribute('href');
+        if (!href || href === '#') return;
+
+        const target = document.querySelector(href);
+        if (!target) return;
+
+        siteNav.classList.remove('open');
+        menuBtn?.setAttribute('aria-expanded', 'false');
+
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        history.pushState(null, '', href);
+      });
+    });
+
+    // Contact form (demo behavior)
+    const form = document.getElementById('contactForm');
+    const success = document.getElementById('successBox');
+
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      success.style.display = 'block';
+      form.reset();
+      success.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
+
 
